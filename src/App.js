@@ -6,6 +6,10 @@ import {
   InfoWindow,
 } from "@react-google-maps/api";
 
+require("dotenv").config();
+
+const key = process.env.REACT_APP_GOOGLE_MAPS_API_KEY
+
 const containerStyle = {
   width: "100vw",
   height: "400px",
@@ -52,7 +56,7 @@ const array = [
 function MyComponent() {
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
-    googleMapsApiKey: "AIzaSyASfoAL7uKRWX0lJbblrkP4LdcQlWXB694",
+    googleMapsApiKey: key
   });
 
   const [map, setMap] = React.useState(null);
@@ -81,10 +85,14 @@ function MyComponent() {
 
         {array.map((place, index) => {
           return (
-            <Marker key={index} position={{ lat: place.lat, lng: place.lng }}>
+            <Marker 
+            key={index} 
+            position={{ lat: place.lat, lng: place.lng }}
+            >
               {
                 <InfoWindow>
                   <p>{place.name}</p>
+                  {/* <button>{place.name}</button> */}
                 </InfoWindow>
               }
             </Marker>
